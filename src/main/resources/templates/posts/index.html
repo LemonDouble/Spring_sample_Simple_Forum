@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+    <h1> 현재 작성되어 있는 모든 포스트 </h1>
+    <table border = "1">
+      <thead>
+      <tr>
+        <th>작성자</th>
+        <th>제목</th>
+        <th>내용</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="post : ${posts}">
+        <td th:text="${post.userId}"></td>
+        <td th:text="${post.title}"></td>
+        <td th:text="${post.content}"></td>
+      </tr>
+      </tbody>
+    </table>
+  <a href="/">돌아가기</a>
+</body>
+</html>
