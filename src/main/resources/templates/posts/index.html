@@ -12,13 +12,15 @@
         <th>작성자</th>
         <th>제목</th>
         <th>내용</th>
+        <th>수정버튼</th>
       </tr>
       </thead>
       <tbody>
       <tr th:each="post : ${posts}">
-        <td th:text="${post.userId}"></td>
+        <td th:text="${post.userId}" ></td>
         <td th:text="${post.title}"></td>
         <td th:text="${post.content}"></td>
+        <td><a th:href="@{'/posts/' + ${post.id}}">수정 / 삭제</a></td>
       </tr>
       </tbody>
     </table>
