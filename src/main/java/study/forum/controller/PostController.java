@@ -3,16 +3,15 @@ package study.forum.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import study.forum.domain.Post;
 import study.forum.domain.User;
 import study.forum.service.PostService;
 import study.forum.service.UserService;
 
+import javax.swing.text.html.Option;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/posts")
@@ -45,5 +44,35 @@ public class PostController {
         postService.savePost(post);
 
         return "redirect:/";
+    }
+
+    @GetMapping("/{id}")
+    public String showModifyDeleteForm(@PathVariable Long id, Model model){
+        Optional<Post> post = postService.findOne(id);
+        List<User> allUser = userService.findAll();
+        model.addAttribute("users", allUser);
+
+        if(post.isPresent()){
+            model.addAttribute("post", post.get());
+            return "/posts/modify_delete";
+        }else{
+            return "redirect:/";
+        }
+    }
+
+    @PostMapping("/modify")
+    public String modifyPost(@RequestParam Long postId, @RequestParam Long userId, @RequestParam String title, @RequestParam String content){
+
+        Post modifyPost = new Post(userId, title, content);
+        postService.modifyPost(postId, modifyPost);
+
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/delete/{id}")
+    public String deletePost(@PathVariable Long id){
+        postService.deletePost(id);
+
+        return "redirect:/posts";
     }
 }
