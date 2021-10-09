@@ -13,6 +13,8 @@ class MemoryPostRepositoryTest {
 
     PostRepository postRepository;
 
+    // @BeforeEach annotation : 각 테스트가 실행되기 전에 실행됨.
+    // MemoryPostRepository 를 초기화시켜 준다.
     @BeforeEach
     public void beforeEach(){
         postRepository = new MemoryPostRepository();

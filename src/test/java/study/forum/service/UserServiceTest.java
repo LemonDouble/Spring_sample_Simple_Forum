@@ -15,8 +15,10 @@ class UserServiceTest {
     UserService userService;
     UserRepository userRepository;
 
+    // @BeforeEach annotation : 각 테스트가 실행되기 전에 실행됨.
     @BeforeEach
     public void beforeEach(){
+        // userRepository 와 userService를 초기화시켜준다.
         userRepository = new MemoryUserRepository();
         userService = new UserService(userRepository);
     }
