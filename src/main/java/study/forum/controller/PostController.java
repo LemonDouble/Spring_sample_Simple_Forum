@@ -9,11 +9,11 @@ import study.forum.domain.User;
 import study.forum.service.PostService;
 import study.forum.service.UserService;
 
-import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Optional;
 
 @Controller
+// localhost:8080/posts 로 시작하는 요청은 모두 이 컨트롤러에서 받는다.
 @RequestMapping("/posts")
 @RequiredArgsConstructor
 public class PostController {
@@ -21,6 +21,7 @@ public class PostController {
     private final PostService postService;
     private final UserService userService;
 
+    // GET localhost:8080/posts 는 아래 showPosts 함수가 처리한다.
     @GetMapping
     public String showPosts(Model model){
         List<Post> allPosts = postService.findAll();
@@ -29,6 +30,7 @@ public class PostController {
         return "/posts/index";
     }
 
+    // GET localhost:8080/posts/save 는 아래 showSaveForm 함수가 처리한다.
     @GetMapping("/save")
     public String showSaveForm(Model model){
         List<User> allUsers = userService.findAll();
