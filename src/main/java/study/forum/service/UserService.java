@@ -31,4 +31,8 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    public void clear(){
+        userRepository.Clear();
+    }
+
 }

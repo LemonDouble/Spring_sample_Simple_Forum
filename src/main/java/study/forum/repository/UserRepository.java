@@ -10,4 +10,7 @@ public interface UserRepository {
     User save(User user);
     Optional<User> findOne(Long id);
     List<User> findAll();
+
+    // Test 위해
+    void Clear();
 }

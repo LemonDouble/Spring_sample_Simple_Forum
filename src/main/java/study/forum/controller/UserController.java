@@ -28,8 +28,6 @@ public class UserController {
         User user = new User(id, password);
         userService.register(user);
 
-        System.out.println("user = " + user);
-
         return "redirect:/";
     }
 
