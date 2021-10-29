@@ -1,3 +1,4 @@
+/*
 package study.forum.repository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -63,3 +64,4 @@ class MemoryUserRepositoryTest {
         assertEquals(2, allUser.size());
     }
 }
+*/

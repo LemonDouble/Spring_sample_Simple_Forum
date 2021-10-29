@@ -2,17 +2,27 @@ package study.forum.domain;
 
 import lombok.Data;
 
+import javax.persistence.*;
+
+
+@Entity
 @Data
 public class Post {
+    @Id @GeneratedValue
     private Long id;
 
-    private Long userId;
     private String title;
     private String content;
 
-    public Post(Long userId, String title, String content) {
-        this.userId = userId;
+    @OneToOne
+    @JoinColumn(name = "USER_ID")
+    private User author;
+
+    public Post(User author, String title, String content) {
+        this.author = author;
         this.title = title;
         this.content = content;
     }
+
+    protected Post(){}
 }

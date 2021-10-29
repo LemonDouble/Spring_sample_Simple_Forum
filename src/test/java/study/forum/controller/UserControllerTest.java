@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.transaction.annotation.Transactional;
 import study.forum.domain.User;
 import study.forum.service.UserService;
 
@@ -17,28 +18,21 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-
 @SpringBootTest
 @AutoConfigureMockMvc
+@Transactional
 class UserControllerTest {
 
-    // BeforeEach 에서 직접 MockMvc 객체를 초기화하는것처럼 만들어준다.
     @Autowired
     private MockMvc mvc;
 
     @Autowired
     private UserService userService;
 
-
-    // 매 테스트 끝날 때마다, UserService -> UserRepository 를 지워준다.
-    @AfterEach
-    public void setServiceClear(){
-        userService.clear();
-    }
-
     // GET users/register 로 갔을 때, "회원 가입 창" 이 있어야 한다.
     @Test
-    public void GET_register() throws Exception {
+    public void showRegister() throws Exception {
+        // GET /users/register
         mvc.perform(
                 MockMvcRequestBuilders.get("/users/register") // GET users/register 로 갔을 때
         )
@@ -49,7 +43,8 @@ class UserControllerTest {
     }
 
     @Test
-    public void POST_register() throws Exception {
+    public void register() throws Exception {
+        // GET /users/register
         mvc.perform(
                         MockMvcRequestBuilders.post("/users/register")// POST users/register 로 갔을 때
                                 .param("id", "test_user")
@@ -63,13 +58,15 @@ class UserControllerTest {
         User registeredUser = allUser.get(0);
 
         //입력한 ID, 비밀번호가 그대로 저장되었는지 확인
-        assertEquals("test_user" ,registeredUser.getUserId());
-        assertEquals("test_password", registeredUser.getUserPassword());
+        assertEquals("test_user" ,registeredUser.getLoginId());
+        assertEquals("test_password", registeredUser.getLoginPassword());
     }
 
 
     @Test
     public void showUsers() throws Exception {
+        // GET /users
+
         //given
         User testUser1 = new User("test_user_1", "test_password_1");
         User testUser2 = new User("test_user_2", "test_password_2");
@@ -82,7 +79,7 @@ class UserControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.content().contentTypeCompatibleWith(MediaType.TEXT_HTML))
                 .andExpect(MockMvcResultMatchers.view().name("/users/index"))
-                .andExpect(MockMvcResultMatchers.model().attribute("users", Matchers.equalTo(allUser))) // Model에 넘겨준 값이 userService에서 받은 값과 일치하는가?
+                .andExpect(MockMvcResultMatchers.model().attribute("users", Matchers.samePropertyValuesAs(allUser))) // Model에 넘겨준 값이 userService에서 받은 값과 일치하는가?
                 .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("test_user_1"))) // 렌더링한 HTML에 "test_user_1" 이란 String 있는가?
                 .andExpect(MockMvcResultMatchers.content().string(Matchers.containsString("test_password_2"))); // 렌더링한 HTML에 "test_password_2" 이란 String 있는가?
 

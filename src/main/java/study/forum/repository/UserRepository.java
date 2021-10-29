@@ -7,10 +7,10 @@ import java.util.Optional;
 
 public interface UserRepository {
 
-    User save(User user);
-    Optional<User> findOne(Long id);
+    void save(User user);
+    Optional<User> findById(Long id);
     List<User> findAll();
 
-    // Test 위해
+    // Test 위해 사용
     void Clear();
 }

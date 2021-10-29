@@ -1,16 +1,26 @@
 package study.forum.domain;
 
-import lombok.Data;
+import lombok.Getter;
 
-@Data
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
+@Getter
 public class User {
+    @Id @GeneratedValue
+    @Column(name = "USER_ID")
     private Long id;
 
-    private String userId;
-    private String userPassword;
+    private String loginId;
+    private String loginPassword;
 
-    public User(String userId, String userPassword) {
-        this.userId = userId;
-        this.userPassword = userPassword;
+    public User(String loginId, String loginPassword) {
+        this.loginId = loginId;
+        this.loginPassword = loginPassword;
     }
+
+    protected User(){}
 }

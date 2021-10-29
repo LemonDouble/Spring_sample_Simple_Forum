@@ -2,8 +2,12 @@ package study.forum.service;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 import study.forum.domain.User;
-import study.forum.repository.MemoryUserRepository;
 import study.forum.repository.UserRepository;
 
 import java.util.List;
@@ -11,17 +15,11 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 class UserServiceTest {
+    @Autowired
     UserService userService;
-    UserRepository userRepository;
-
-    // @BeforeEach annotation : 각 테스트가 실행되기 전에 실행됨.
-    @BeforeEach
-    public void beforeEach(){
-        // userRepository 와 userService를 초기화시켜준다.
-        userRepository = new MemoryUserRepository();
-        userService = new UserService(userRepository);
-    }
 
     @Test
     public void register() throws Exception {
@@ -30,9 +28,10 @@ class UserServiceTest {
 
         //when
         Long registerId = userService.register(testUser);
-        Optional<User> findUser = userService.findOne(registerId);
+        User findUser = userService.findOne(registerId);
         //then
-        assertEquals(testUser,findUser.get());
+        assertEquals(testUser.getLoginId(), findUser.getLoginId());
+        assertEquals(testUser.getLoginPassword(), findUser.getLoginPassword());
     }
 
     private User getTestUser(String id, String password) {

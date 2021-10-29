@@ -1,3 +1,4 @@
+/*
 package study.forum.repository;
 
 import org.springframework.stereotype.Component;
@@ -5,7 +6,6 @@ import study.forum.domain.User;
 
 import java.util.*;
 
-@Component
 public class MemoryUserRepository implements UserRepository{
 
     private Map<Long, User> store = new HashMap<>();
@@ -34,3 +34,4 @@ public class MemoryUserRepository implements UserRepository{
     }
 
 }
+*/
