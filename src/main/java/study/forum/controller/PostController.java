@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import study.forum.domain.Post;
 import study.forum.domain.User;
+import study.forum.exception.NotExistIdException;
 import study.forum.service.PostService;
 import study.forum.service.UserService;
 
@@ -76,5 +77,17 @@ public class PostController {
         postService.deletePost(id);
 
         return "redirect:/posts";
+    }
+
+    @GetMapping("/error")
+    public String makeError(){
+        postService.deletePost(10L);
+        return "redirect:/posts";
+    }
+
+    @ExceptionHandler(value = NotExistIdException.class)
+    @ResponseBody
+    public String handleError(Exception e){
+        return e.toString();
     }
 }
