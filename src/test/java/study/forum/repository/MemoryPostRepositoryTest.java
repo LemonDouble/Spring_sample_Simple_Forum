@@ -1,3 +1,4 @@
+/*
 package study.forum.repository;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -138,3 +139,4 @@ class MemoryPostRepositoryTest {
         assertEquals("존재하지 않는 POST 입니다.", message);
     }
 }
+ */

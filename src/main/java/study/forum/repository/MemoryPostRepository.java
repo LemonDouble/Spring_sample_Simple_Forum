@@ -1,3 +1,4 @@
+/*
 package study.forum.repository;
 
 import org.springframework.stereotype.Component;
@@ -5,7 +6,6 @@ import study.forum.domain.Post;
 
 import java.util.*;
 
-@Component
 public class MemoryPostRepository implements PostRepository{
 
     private Map<Long, Post> store = new HashMap<>();
@@ -53,4 +53,9 @@ public class MemoryPostRepository implements PostRepository{
         }
     }
 
+    @Override
+    public void clear() {
+        store.clear();
+    }
 }
+*/

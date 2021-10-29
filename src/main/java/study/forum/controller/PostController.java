@@ -41,7 +41,9 @@ public class PostController {
 
     @PostMapping("/save")
     public String savePosts(@RequestParam Long userId, @RequestParam String title, @RequestParam String content){
-        Post post = new Post(userId, title, content);
+        User author = userService.findOne(userId);
+
+        Post post = new Post(author, title, content);
 
         postService.savePost(post);
 
@@ -50,22 +52,20 @@ public class PostController {
 
     @GetMapping("/{id}")
     public String showModifyDeleteForm(@PathVariable Long id, Model model){
-        Optional<Post> post = postService.findOne(id);
+        Post post = postService.findOne(id);
         List<User> allUser = userService.findAll();
         model.addAttribute("users", allUser);
 
-        if(post.isPresent()){
-            model.addAttribute("post", post.get());
-            return "/posts/modify_delete";
-        }else{
-            return "redirect:/";
-        }
+        model.addAttribute("post", post);
+        return "/posts/modify_delete";
+
     }
 
     @PostMapping("/modify")
     public String modifyPost(@RequestParam Long postId, @RequestParam Long userId, @RequestParam String title, @RequestParam String content){
 
-        Post modifyPost = new Post(userId, title, content);
+        User author = userService.findOne(userId);
+        Post modifyPost = new Post(author, title, content);
         postService.modifyPost(postId, modifyPost);
 
         return "redirect:/posts";

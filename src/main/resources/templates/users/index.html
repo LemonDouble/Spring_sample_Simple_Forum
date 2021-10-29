@@ -9,14 +9,16 @@
     <table border = "1">
         <thead>
             <tr>
+                <th>Seq</th>
                 <th>ID</th>
                 <th>PW</th>
             </tr>
         </thead>
         <tbody>
             <tr th:each="user : ${users}">
-                <td th:text="${user.userId}"></td>
-                <td th:text="${user.userPassword}"></td>
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.loginId}"></td>
+                <td th:text="${user.loginPassword}"></td>
             </tr>
         </tbody>
     </table>

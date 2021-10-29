@@ -17,7 +17,7 @@
       </thead>
       <tbody>
       <tr th:each="post : ${posts}">
-        <td th:text="${post.userId}" ></td>
+        <td th:text="${post.author.loginId}" ></td>
         <td th:text="${post.title}"></td>
         <td th:text="${post.content}"></td>
         <td><a th:href="@{'/posts/' + ${post.id}}">수정 / 삭제</a></td>

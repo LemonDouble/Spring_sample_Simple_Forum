@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Optional;
 
 public interface PostRepository {
-    Post save(Post post);
+    void save(Post post);
     Optional<Post> findById(Long id);
     List<Post> findAll();
-    Post modify(Long id, Post post);
-    Post delete(Long id);
+    void delete(Long id);
+
+    // Test 위해 사용
+    void clear();
 }
