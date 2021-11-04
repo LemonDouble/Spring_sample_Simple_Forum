@@ -28,12 +28,7 @@ jobs:
       
     # Mysql 설정
     - name: Start MySQL
-      uses: samin/mysql-action@v1.3
-      with:
-        character set server: 'utf8'
-        mysql database: 'test'
-        mysql user: 'developer'
-        mysql password: '5F87yFrw>'
+      run : docker run --name somemysql -e MYSQL_USER=developer -e MYSQL_PASSWORD=12345 -e MYSQL_DATABASE=test -e MYSQL_RANDOM_ROOT_PASSWORD=yes -d -p 3306:3306 mysql
 
     
     # Test용 설정 주입
