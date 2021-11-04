@@ -30,6 +30,8 @@ jobs:
     - name: Setup MySQL
       uses: mirromutth/mysql-action@v1.1
       with:
+        host port: 3306
+        container port: 3306
         character set server: 'utf8'
         mysql user: 'developer'
         mysql password: ${{secrets.DatabasePassword}}
@@ -41,7 +43,7 @@ jobs:
         chmod -R 777 .github 
         mv .github/workflows/test_application.properties ./src/test/java/resources/application.properties
 
-        docker ps -a
+        docker ps
         
     #Build 확인
     - name: Build with Gradle
