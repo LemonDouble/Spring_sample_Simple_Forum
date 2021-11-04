@@ -28,13 +28,13 @@ jobs:
       
     # H2 Database 설치
     - name: setup H2 Database
-      run: docker run --name test-db -d buildo/h2database
+      run: docker run --name test-db -p 9092:9092 -d buildo/h2database
     
     # Test용 설정 주입
     - name: setup docker H2 Database environment variable
       run : |
         mkdir ./src/test/java/resources
-        echo spring.datasource.url=jdbc:h2:tcp://test-db/forum > ./src/test/java/resources/application.properties
+        echo spring.datasource.url=jdbc:h2:mem:test > ./src/test/java/resources/application.properties
 
     #Build 확인
     - name: Build with Gradle
