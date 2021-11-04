@@ -30,6 +30,7 @@ jobs:
     - name: Setup MySQL
       uses: mirromutth/mysql-action@v1.1
       with:
+        character set server: 'utf8'
         mysql user: 'developer'
         mysql password: ${{secrets.DatabasePassword}}
     
@@ -39,9 +40,9 @@ jobs:
         mkdir ./src/test/java/resources
         chmod -R 777 .github 
         mv .github/workflows/test_application.properties ./src/test/java/resources/application.properties
+        cat ./src/test/java/resources/application.properties
+        ls
         
     #Build 확인
     - name: Build with Gradle
       run: ./gradlew build
-    - name: Test with Gradle
-      run: ./gradlew --info test
