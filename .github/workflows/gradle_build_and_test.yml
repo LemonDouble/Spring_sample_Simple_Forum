@@ -33,7 +33,7 @@ jobs:
         character set server: 'utf8'
         mysql database: 'test'
         mysql user: 'developer'
-        mysql password: '5F87yFr*[4%,^+w>'
+        mysql password: '5F87yFrw>'
 
     
     # Test용 설정 주입
