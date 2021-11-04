@@ -25,6 +25,15 @@ jobs:
     # Gradle wrapper 권한 설정
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
+      
+    # H2 Database 설치
+    - name: setup H2 Database
+      run: docker run --name test-db -d buildo/h2database
+    
+    # Test용 설정 주입
+    - name: setup docker H2 Database environment variable
+      run : echo spring.datasource.url=jdbc:h2:tcp://test-db/forum > ./src/test/java/resources/application.properties
+      
     #Build 확인
     - name: Build with Gradle
       run: ./gradlew build
