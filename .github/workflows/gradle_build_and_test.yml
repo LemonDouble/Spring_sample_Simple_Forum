@@ -27,8 +27,14 @@ jobs:
       run: chmod +x gradlew
       
     # Mysql 설정
-    - name: Setup MySQL
-      run: docker run mysql -p 3306:3306 --name some-mysql -e MYSQL_USER=developer MYSQL_PASSWORD=5F87yFr*[4%,^+w> MYSQL_DATABASE=test
+    - name: Start MySQL
+      uses: samin/mysql-action@v1.3
+      with:
+        character set server: 'utf8'
+        mysql database: 'test'
+        mysql user: 'developer'
+        mysql password: '5F87yFr*[4%,^+w>'
+
     
     # Test용 설정 주입
     - name: setup spring boot mysql Database settings 
