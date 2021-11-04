@@ -37,9 +37,9 @@ jobs:
         mkdir ./src/test/java/resources
         chmod -R 777 .github 
         mv .github/workflows/test_application.properties ./src/test/java/resources/application.properties
-
         docker ps -a
+        
         
     #Build 확인
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build --d
