@@ -26,16 +26,16 @@ jobs:
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       
-    # H2 Database 설치
-    - name: setup H2 Database
-      run: docker run --name test-db -p 9092:9092 -d buildo/h2database
-    
-    # Test용 설정 주입
-    - name: setup docker H2 Database environment variable
-      run : echo spring.datasource.url=jdbc:h2:tcp://test-db/forum > ./src/test/java/resources/application.properties
-      
+    # Mysql 설정
+    - name: Start MySQL
+      run : docker run --name somemysql -e MYSQL_USER=developer -e MYSQL_PASSWORD=12345 -e MYSQL_DATABASE=test -e MYSQL_RANDOM_ROOT_PASSWORD=yes -d -p 3306:3306 mysql
+        
+        
     #Build 확인
     - name: Build with Gradle
-      run: ./gradlew build
-    - name: Test with Gradle
-      run: ./gradlew --info test
+      run: |
+        export DATASOURCE_URL=jdbc:mysql://localhost:3306/test
+        export DATASOURCE_USERNAME=developer
+        export DATASOURCE_PASSWORD=12345
+        export DATASOURCE_DRIVER=com.mysql.cj.jdbc.Driver
+        ./gradlew build
