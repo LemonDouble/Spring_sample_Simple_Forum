@@ -28,7 +28,7 @@ jobs:
       
     # H2 Database 설치
     - name: setup H2 Database
-      run: docker run --name test-db -d buildo/h2database
+      run: docker run --name test-db -p 9092:9092 -d buildo/h2database
     
     # Test용 설정 주입
     - name: setup docker H2 Database environment variable
