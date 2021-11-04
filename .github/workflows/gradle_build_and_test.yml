@@ -37,7 +37,7 @@ jobs:
     - name: setup spring boot mysql Database settings 
       run : |
         mkdir ./src/test/java/resources
-        chmod -r 777 .github 
+        chmod -R 777 .github 
         mv .github/workflows/test_application.properties ./src/test/java/resources/application.properties
         
     #Build 확인
