@@ -37,7 +37,8 @@ jobs:
     - name: setup spring boot mysql Database settings 
       run : |
         mkdir ./src/test/java/resources
-        mv ./github/workflows/test_application.properties ./src/test/java/resources/application.properties
+        chmod -r +x .github 
+        mv .github/workflows/test_application.properties ./src/test/java/resources/application.properties
         
     #Build 확인
     - name: Build with Gradle
