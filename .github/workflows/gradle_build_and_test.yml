@@ -42,4 +42,4 @@ jobs:
         
     #Build 확인
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew build -d
